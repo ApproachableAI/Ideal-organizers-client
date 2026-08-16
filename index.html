@@ -138,7 +138,7 @@ header.hero{padding:96px 0 80px;text-align:center;background:linear-gradient(180
 .bridge .eyebrow .tick{background:var(--sand)}
 .bridge p{color:rgba(255,255,255,.85);max-width:640px;margin:0 auto}
 
-/* ---------- paths ---------- */
+/* ---------- phases ---------- */
 .path-head{display:flex;align-items:baseline;gap:18px;margin-bottom:8px}
 .path-num{font-family:var(--serif);font-size:64px;color:var(--sand-deep);line-height:1}
 .chip-row{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 22px}
@@ -178,6 +178,17 @@ header.hero{padding:96px 0 80px;text-align:center;background:linear-gradient(180
 .demo-top button{margin-left:auto;background:var(--sand);color:var(--teal-deep);border:none;border-radius:999px;padding:11px 20px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
 .demo-top button:hover{background:var(--white)}
 .demo-top button:disabled{opacity:.55;cursor:default}
+.demo-body{display:flex;gap:12px;align-items:stretch}
+.demo-nav{flex:0 0 172px;background:rgba(255,250,244,.07);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:4px}
+.dnav{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:9px;color:var(--mint);font-size:13.5px;font-weight:600;cursor:pointer;border:none;background:transparent;text-align:left;font-family:var(--sans);transition:background .2s}
+.dnav svg{width:17px;height:17px;flex:none}
+.dnav:hover{background:rgba(255,250,244,.1)}
+.dnav.on{background:var(--sand);color:var(--teal-deep)}
+.dnav.dis{opacity:.4;cursor:default;font-weight:400}
+.dnav.dis:hover{background:transparent}
+.dnav .soon{margin-left:auto;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase}
+.demo-view{flex:1;min-width:0}
+@media(max-width:720px){.demo-body{flex-direction:column}.demo-nav{flex:none;flex-direction:row;overflow-x:auto}.dnav .soon{display:none}}
 .board{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px;-webkit-overflow-scrolling:touch}
 .colm{flex:0 0 218px;background:rgba(255,250,244,.07);border-radius:14px;padding:12px}
 .colm h5{color:var(--mint);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:2px 6px 10px;display:flex;justify-content:space-between}
@@ -197,6 +208,40 @@ header.hero{padding:96px 0 80px;text-align:center;background:linear-gradient(180
 .card.new{animation:cardin .6s ease}
 @keyframes cardin{from{opacity:0;transform:translateY(-14px) scale(.95)}to{opacity:1;transform:none}}
 .demo-note{color:var(--sand);font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding-top:12px;font-weight:600}
+/* automations view */
+.autos{display:flex;flex-direction:column;gap:10px}
+.auto-row{background:var(--white);border-radius:12px;overflow:hidden}
+.auto-head{display:flex;align-items:center;gap:14px;padding:15px 17px;cursor:pointer}
+.auto-head .info{flex:1;min-width:0}
+.auto-head .nm{font-weight:700;font-size:14.5px;color:var(--ink)}
+.auto-head .tr{font-size:12.5px;color:var(--ink-soft);margin-top:2px;line-height:1.45}
+.auto-head .tr b{color:var(--teal);font-weight:600}
+.sw{flex:none;width:42px;height:23px;border-radius:99px;background:#c5d2ce;position:relative;transition:background .25s;cursor:pointer}
+.sw::after{content:'';position:absolute;top:2.5px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--white);transition:left .25s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.sw.on{background:var(--teal)}
+.sw.on::after{left:21px}
+.auto-badge{flex:none;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:99px;background:#efe9db;color:#8a7a52}
+.auto-detail{display:none;border-top:1.5px solid var(--mint);padding:16px 18px;background:var(--mint-soft)}
+.auto-row.open .auto-detail{display:block;animation:fadein .3s}
+.auto-detail .hint{font-size:12px;color:var(--slate-deep);letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.seq-item{display:flex;gap:14px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(7,100,95,.09)}
+.seq-item:last-of-type{border-bottom:none}
+.seq-item .d{flex:none;width:52px;font-family:var(--serif);color:var(--teal);font-size:15px;font-weight:700}
+.seq-item .w{flex:1;font-size:13.5px}
+.seq-item .w em{display:block;font-style:normal;font-size:12px;color:var(--ink-soft)}
+.seq-item .w .prev{font-family:var(--serif-i);font-style:italic;color:var(--teal-deep);font-size:13.5px;margin-top:5px;line-height:1.5}
+.seq-item .s{flex:none;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:99px;background:#efe9db;color:#8a7a52}
+.seq-item .s.ok{background:var(--mint);color:var(--teal)}
+.seq-approve{margin-top:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.seq-approve button{background:var(--teal);color:var(--white);border:none;border-radius:999px;padding:9px 20px;font-weight:700;font-size:13px;cursor:pointer}
+.seq-approve button:disabled{background:var(--slate);cursor:default}
+.seq-approve .st{font-size:12.5px;color:var(--ink-soft)}
+.stopline{margin-top:12px;padding:11px 14px;background:var(--white);border-radius:10px;font-size:13px;color:var(--teal-deep)}
+/* reports view */
+.report-panel{background:var(--white);border-radius:14px;padding:20px 22px}
+.report-panel .rp-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.report-panel h4{font-family:var(--serif);font-size:21px;color:var(--teal)}
+.report-panel .foot{margin-top:14px;font-size:12.5px;color:var(--ink-soft)}
 /* drawer */
 #drawer-veil{position:fixed;inset:0;background:rgba(43,54,52,.45);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
 #drawer-veil.show{opacity:1;pointer-events:auto}
@@ -224,8 +269,8 @@ header.hero{padding:96px 0 80px;text-align:center;background:linear-gradient(180
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 #toast b{color:var(--sand)}
 
-/* ---------- drip ---------- */
-.drip-flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0;margin:30px 0;counter-reset:df}
+/* ---------- drip flow ---------- */
+.drip-flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0;margin:30px 0}
 .df-step{position:relative;padding:22px 18px 18px;background:var(--white);border:1.5px solid var(--mint);text-align:center}
 .df-step:first-child{border-radius:14px 0 0 14px}
 .df-step:last-child{border-radius:0 14px 14px 0}
@@ -236,27 +281,6 @@ header.hero{padding:96px 0 80px;text-align:center;background:linear-gradient(180
 .df-step p{font-size:13px;color:var(--ink-soft);margin:6px 0 0;line-height:1.45}
 .df-step.hl{background:var(--mint-soft);border-color:var(--teal)}
 @media(max-width:820px){.df-step:first-child{border-radius:14px 14px 0 0}.df-step:last-child{border-radius:0 0 14px 14px}.df-step+.df-step{border-left:1.5px solid var(--mint);border-top:none}}
-.email-demo{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin:30px 0}
-@media(max-width:860px){.email-demo{grid-template-columns:1fr}}
-.email-card{background:var(--white);border-radius:16px;box-shadow:var(--shadow-md);overflow:hidden}
-.email-card .eh{background:var(--mint-soft);padding:16px 22px;border-bottom:1.5px solid var(--mint);font-size:13.5px;color:var(--ink-soft)}
-.email-card .eh b{color:var(--ink);display:block;font-size:15px;margin-bottom:2px}
-.email-card .eb{padding:24px 26px;font-size:15px;line-height:1.7}
-.email-card .eb p{margin-bottom:14px}
-.email-card .ef{padding:16px 22px;border-top:1.5px solid var(--mint);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.email-card .ef button{background:var(--teal);color:var(--white);border:none;border-radius:999px;padding:11px 24px;font-weight:700;font-size:14px;cursor:pointer}
-.email-card .ef button:disabled{background:var(--slate);cursor:default}
-.email-card .ef .st{font-size:13.5px;color:var(--ink-soft)}
-.seq{background:var(--white);border-radius:16px;box-shadow:var(--shadow-sm);padding:24px 26px}
-.seq h4{font-family:var(--sans);font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate-deep);margin-bottom:16px;font-weight:700}
-.seq-item{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--mint-soft)}
-.seq-item:last-child{border-bottom:none}
-.seq-item .d{flex:none;width:52px;font-family:var(--serif);color:var(--teal);font-size:15px;font-weight:700}
-.seq-item .w{flex:1;font-size:14px}
-.seq-item .w em{display:block;font-style:normal;font-size:12.5px;color:var(--ink-soft)}
-.seq-item .s{flex:none;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:99px;background:#efe9db;color:#8a7a52}
-.seq-item .s.ok{background:var(--mint);color:var(--teal)}
-.stopline{margin-top:14px;padding:12px 16px;background:var(--mint-soft);border-radius:10px;font-size:13.5px;color:var(--teal-deep)}
 .metric-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 .metric{background:var(--white);border:1.5px solid var(--mint);border-radius:999px;padding:8px 18px;font-size:13.5px;color:var(--ink-soft)}
 .metric b{color:var(--teal)}
@@ -281,6 +305,19 @@ header.hero{padding:96px 0 80px;text-align:center;background:linear-gradient(180
 .invest-table .tot td{background:var(--mint-soft);font-weight:600}
 .table-scroll{overflow-x:auto}
 .founding{background:var(--white);border-radius:16px;padding:28px 30px;box-shadow:var(--shadow-sm);border-top:3px solid var(--sand);margin:26px 0}
+.pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:30px 0}
+@media(max-width:820px){.pay-grid{grid-template-columns:1fr}}
+.pay-card{background:var(--white);border-radius:16px;padding:30px;box-shadow:var(--shadow-sm);border:2px solid transparent;position:relative}
+.pay-card.alt{border-color:var(--sand-deep)}
+.pay-card .alt-tag{position:absolute;top:-13px;left:26px;background:var(--sand-deep);color:var(--white);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:5px 14px;border-radius:999px}
+.pay-card h3{margin-top:4px}
+.pay-card .big{font-family:var(--serif);font-size:34px;color:var(--teal);margin:10px 0 2px}
+.pay-card .big span{font-size:16px;color:var(--ink-soft);font-family:var(--sans)}
+.pay-card ul{list-style:none;margin:14px 0 0}
+.pay-card li{padding:8px 0 8px 26px;position:relative;font-size:14.5px;border-bottom:1px solid var(--mint-soft)}
+.pay-card li:last-child{border-bottom:none}
+.pay-card li::before{content:'';position:absolute;left:2px;top:15px;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+.pay-card .meta{margin-top:14px;padding-top:12px;border-top:1.5px solid var(--mint);font-size:13.5px;color:var(--ink-soft)}
 
 /* ---------- next ---------- */
 .next-band{background:var(--teal);color:var(--white);text-align:center}
@@ -322,9 +359,8 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
     <div class="nav-links">
       <a href="#heard">What we heard</a>
       <a href="#found">What we found</a>
-      <a href="#path1">See</a>
-      <a href="#path2">Connect</a>
-      <a href="#path3">Engage</a>
+      <a href="#phase1">Phase one</a>
+      <a href="#phase2">Phase two</a>
       <a href="#invest">Investment</a>
       <a href="#next">Next step</a>
     </div>
@@ -338,7 +374,7 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
     <img src="data:image/png;base64,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" alt="Ideal Organizing + Design">
     <div class="eyebrow"><span>The 48-Hour Blueprint</span><span class="tick"></span><span>August 2026</span></div>
     <h1>The Ideal Blueprint</h1>
-    <p class="lead">What we heard, what we found, and three clear paths to a business where every lead is seen, every follow-up happens, and every marketing dollar can show its work.</p>
+    <p class="lead">What we heard, what we found, and a clear two-phase plan for a business where every lead is seen, every follow-up happens, and every marketing dollar can show its work.</p>
     <div class="byline">Prepared for Tria Presher and the Ideal Organizing + Design team<br>by Approachable Intelligence</div>
     <div class="draftnote">A working document for discussion. Nothing here is final until we shape it together.</div>
   </div>
@@ -404,7 +440,7 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
     </div>
 
     <div class="reassure reveal">
-      <p style="margin:0"><strong>Two things worth saying plainly.</strong> First, this is common. Most small business websites are set up exactly this way, and it is nobody's fault. Second, this answers a question from our call. The Facebook ads may have worked, or not. The pixel was never given a way to report a consult or an inquiry back, so there was no way for anyone to know. That is fixable, and it is the first thing we would fix.</p>
+      <p style="margin:0"><strong>Two things worth saying plainly.</strong> First, this is common. Most small business websites are set up exactly this way, and it is nobody's fault. Second, this answers a question from our call. The Facebook ads may have worked, or not. The pixel was never given a way to report a consult or an inquiry back, so there was no way for anyone to know. That is fixable, and Phase Two of this plan fixes it.</p>
     </div>
 
     <div class="reveal" style="margin-top:56px">
@@ -416,7 +452,7 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
     </div>
 
     <div class="reassure reveal">
-      <p style="margin:0"><strong>About the numbers in this document.</strong> Your team estimates roughly 5,000 contacts in Streak and roughly 1,500 on the Mailchimp list. We are using the word roughly on purpose. One of the first tasks in any path below is to count exactly, so that every number after that is one you can trust.</p>
+      <p style="margin:0"><strong>About the numbers in this document.</strong> Your team estimates roughly 5,000 contacts in Streak and roughly 1,500 on the Mailchimp list. We are using the word roughly on purpose. One of the first tasks in either phase below is to count exactly, so that every number after that is one you can trust.</p>
     </div>
   </div>
 </section>
@@ -425,45 +461,18 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
 <section class="bridge">
   <div class="wrap reveal">
     <div class="eyebrow"><span>The idea</span><span class="tick"></span><span>In one sentence</span></div>
-    <h2>Before spending a dollar reaching strangers, make the system you already own visible, connected, and working the contacts you already have.</h2>
-    <p>Roughly 5,000 people already know Ideal exists. They sit in Streak today, mostly untouched after the job ends. The three paths below are in order of importance, on purpose. Each one stands alone, and each one makes the next one stronger.</p>
+    <h2>Before spending a dollar reaching strangers, put the system you already own to work on the contacts you already have. Then measure everything.</h2>
+    <p>Roughly 5,000 people already know Ideal exists. They sit in Streak today, mostly untouched after the job ends. The two phases below are in that order on purpose. The system and the outreach come first, because that is where the value is waiting. The measurement follows, so every result has a number under it.</p>
   </div>
 </section>
 
-<!-- ======== PATH ONE ======== -->
-<section id="path1">
+<!-- ======== PHASE ONE ======== -->
+<section id="phase1">
   <div class="wrap">
     <div class="reveal">
-      <div class="path-head"><span class="path-num">1</span><div><div class="eyebrow"><span>Path one</span><span class="tick"></span><span>Measurement</span></div><h2 style="margin-top:10px">See.</h2></div></div>
-      <p class="lead">Counting comes first. We wire the website, the forms, and the phone so that every inquiry is recorded with its source, automatically. Nothing about how you work changes in this path. The only change is that the business starts writing things down for you.</p>
-      <div class="chip-row"><span class="chip">Analytics on every page</span><span class="chip">Every form counted</span><span class="chip">Phone calls counted</span><span class="chip">Facebook pixel taught what a lead is</span><span class="chip">A privacy check before anything expands</span></div>
-      <p>The deliverable you actually see is simple. One card, every Monday morning, in plain counts. No dashboards to learn, no logins to remember. It arrives, you glance at it, and you know.</p>
-    </div>
-
-    <div class="scorecard reveal">
-      <div class="scorecard-head"><h3>Monday morning, at a glance</h3><span class="samplenote">Sample data</span></div>
-      <div class="sc-grid">
-        <div class="sc-tile"><div class="v" id="sc-leads">9</div><div class="k">New leads last week</div></div>
-        <div class="sc-tile"><div class="v">5</div><div class="k">Consults booked</div></div>
-        <div class="sc-tile"><div class="v">3</div><div class="k">Agreements out</div></div>
-        <div class="sc-tile"><div class="v">2</div><div class="k">Projects scheduled</div></div>
-        <div class="sc-tile"><div class="v">2</div><div class="k">Reviews collected</div></div>
-      </div>
-      <div class="sc-src">Where the 9 came from: <b>4</b> website form · <b>3</b> phone · <b>1</b> Angi · <b>1</b> referral</div>
-    </div>
-
-    <div class="reveal">
-      <p>Within the first month of this being live, you will know how many people reached out, through which door, and what each one became. That is the answer to the sentence we heard more than any other on our call: not being sure what is working.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ======== PATH TWO ======== -->
-<section id="path2" style="background:var(--white)">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="path-head"><span class="path-num">2</span><div><div class="eyebrow"><span>Path two</span><span class="tick"></span><span>The system of record</span></div><h2 style="margin-top:10px">Connect.</h2></div></div>
-      <p class="lead">One place where every lead lands, every next step is obvious, and nothing depends on somebody remembering. There are two honest ways to get there, and we will build whichever one you choose.</p>
+      <div class="path-head"><span class="path-num">1</span><div><div class="eyebrow"><span>Phase one</span><span class="tick"></span><span>The system, and the outreach</span></div><h2 style="margin-top:10px">Connect, and engage.</h2></div></div>
+      <p class="lead">One place where every lead lands, every next step is obvious, and your current clients hear from you without anyone having to remember. This phase is the heart of the plan: a system of record built for Ideal, your existing contacts migrated into it, and warm, human-approved follow-up running on its own.</p>
+      <p>There are two honest ways to get the system, and we will build whichever one you choose.</p>
     </div>
 
     <div class="two-col reveal">
@@ -491,8 +500,8 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
     </div>
 
     <div class="reveal" style="margin-top:44px">
-      <h3 style="font-size:28px">Rather than describe Option B, we built you a small working sample.</h3>
-      <p>Everything below is clickable. The people are invented; no real client information appears anywhere in this document. Click any card to see its story, then press the button in the corner and watch a brand new lead arrive the way it would in real life.</p>
+      <h3 style="font-size:28px">Rather than describe it, we built you a small working sample.</h3>
+      <p>Everything below is clickable. The people are invented; no real client information appears anywhere in this document. Use the panel on the left to move around the system. Click any card for its story, open <strong>Automations</strong> to see the follow-up machinery, and press the button in the corner to watch a brand new lead arrive the way it would in real life.</p>
     </div>
 
     <div class="demo-shell reveal">
@@ -501,7 +510,37 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
         <div class="t">Ideal Client Flow<span>Working sample · invented data</span></div>
         <button id="simulate">Watch a new lead arrive</button>
       </div>
-      <div class="board" id="board"></div>
+      <div class="demo-body">
+        <div class="demo-nav">
+          <button class="dnav on" data-v="pipeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="10" rx="1"/><rect x="17" y="4" width="5" height="13" rx="1"/></svg>Pipeline</button>
+          <button class="dnav" data-v="autos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>Automations</button>
+          <button class="dnav" data-v="reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Reports</button>
+          <button class="dnav dis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>Clients<span class="soon">in the build</span></button>
+          <button class="dnav dis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>Schedule<span class="soon">in the build</span></button>
+        </div>
+        <div class="demo-view">
+          <div id="view-pipeline">
+            <div class="board" id="board"></div>
+          </div>
+          <div id="view-autos" hidden>
+            <div class="autos" id="autos"></div>
+          </div>
+          <div id="view-reports" hidden>
+            <div class="report-panel">
+              <div class="rp-head"><h4>Monday scorecard</h4><span class="samplenote">Sample data</span></div>
+              <div class="sc-grid">
+                <div class="sc-tile"><div class="v js-leads">9</div><div class="k">New leads last week</div></div>
+                <div class="sc-tile"><div class="v">5</div><div class="k">Consults booked</div></div>
+                <div class="sc-tile"><div class="v">3</div><div class="k">Agreements out</div></div>
+                <div class="sc-tile"><div class="v">2</div><div class="k">Projects scheduled</div></div>
+                <div class="sc-tile"><div class="v">2</div><div class="k">Reviews collected</div></div>
+              </div>
+              <div class="sc-src">Where the 9 came from: <b>4</b> website form · <b>3</b> phone · <b>1</b> Angi · <b>1</b> referral</div>
+              <div class="foot">This report also arrives by email every Monday morning, so there is nothing to remember to open. Phase Two wires in the website and the phone so these counts are complete.</div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="demo-note">Sample only. Built in two days for this blueprint.</div>
     </div>
 
@@ -514,54 +553,23 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
       </div>
       <p class="small">Built with Mercedes, not around her. Her pipeline work is the seed of this design, and she would be involved from the first week.</p>
     </div>
-  </div>
-</section>
 
-<!-- ======== PATH THREE ======== -->
-<section id="path3">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="path-head"><span class="path-num">3</span><div><div class="eyebrow"><span>Path three</span><span class="tick"></span><span>Follow-up that runs itself</span></div><h2 style="margin-top:10px">Engage.</h2></div></div>
-      <p class="lead">Today, every offer goes to the same 1,500 or so people, and the team is rightly careful not to email them too often. The fix is not more email. It is the right email, to the right group, at the right moment, with a person approving every word before anything sends.</p>
+    <div class="reveal" style="margin-top:44px">
+      <h3 style="font-size:28px">The outreach: your own contacts, finally hearing from you</h3>
+      <p class="lead">The first audience is not strangers. It is the clients and past clients already sitting in your records, the people most likely to book again and the people most likely to refer. Today, every offer goes to the same 1,500 or so people, and the team is rightly careful not to email them too often. The fix is not more email. It is the right email, to the right group, at the right moment, with a person approving every word before anything sends.</p>
       <p>Three groups, three different conversations. A brand new lead gets a short, warm welcome series that stops the moment they reply or book. A just-finished client gets a thank-you and, at the right moment, a review invitation. A past client hears from you seasonally, like a neighbor, not a billboard. Nobody gets everything, so nobody gets tired of you.</p>
     </div>
 
     <div class="reveal" style="margin-top:36px">
       <h3>And this is where the portal finally earns its keep</h3>
-      <p>You are already paying for a library of marketing formulas through the Business Master Class portal. Today it is a library: full of good material, connected to nothing. In this path it becomes a supply line.</p>
+      <p>You are already paying for a library of marketing formulas through the Business Master Class portal. Today it is a library: full of good material, connected to nothing. In this phase it becomes a supply line.</p>
       <div class="drip-flow">
         <div class="df-step"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2zm0 0a2 2 0 0 1 2-2h13"/></svg></div><h4>1. The portal</h4><p>A formula is chosen, for example from the Referral System Builder. We copy it into your own library first, so nothing you run ever depends on the portal being up or a membership being active.</p></div>
         <div class="df-step"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div><h4>2. The draft</h4><p>AI drafts the sequence in Ideal's voice, calm and warm, using the formula as its brief. Drafting is all it does.</p></div>
         <div class="df-step hl"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div><h4>3. Your approval</h4><p>A person reads every word and approves it, or edits it, or throws it out. Nothing sends without this step. Ever.</p></div>
         <div class="df-step"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></div><h4>4. Sent and counted</h4><p>The approved sequence runs by itself and reports back in plain numbers: delivered, opened, replied, booked.</p></div>
       </div>
-    </div>
-
-    <div class="reveal">
-      <h3>Try the approval step yourself</h3>
-      <p class="small" style="margin-bottom:6px">A sample draft, for an invented new lead. Press approve and watch it take its place in the sequence.</p>
-      <div class="email-demo">
-        <div class="email-card">
-          <div class="eh"><b>Subject: Your next step, whenever you are ready</b>To: Janet W. (sample) · From: Ideal Organizing + Design · Draft 1 of 3</div>
-          <div class="eb">
-            <p>Hi Janet,</p>
-            <p>Thank you for reaching out about your mother's home. Downsizing a family house is a big undertaking, and the fact that you are looking into it now, calmly and ahead of time, is honestly the best possible start.</p>
-            <p>When you are ready, the next step is a short conversation with Tria. She will ask a few questions, look at photos if that is easier than a visit, and give you a clear picture of what the work would involve. No obligation comes with that call, and no pressure follows it.</p>
-            <p>Warmly,<br>The Ideal team</p>
-          </div>
-          <div class="ef">
-            <button id="approve-btn">Approve this draft</button>
-            <span class="st" id="approve-st">Waiting for your review</span>
-          </div>
-        </div>
-        <div class="seq">
-          <h4>The welcome sequence</h4>
-          <div class="seq-item"><span class="d">Day 0</span><div class="w">A warm welcome and what to expect<em>The draft on the left</em></div><span class="s" id="seq0">Draft</span></div>
-          <div class="seq-item"><span class="d">Day 3</span><div class="w">A short, genuinely useful guide<em>How to photograph rooms for a photo consult</em></div><span class="s">Drafted next</span></div>
-          <div class="seq-item"><span class="d">Day 7</span><div class="w">A gentle check-in<em>One question, easy to answer</em></div><span class="s">Drafted next</span></div>
-          <div class="stopline">The sequence stops itself the moment Janet replies, books, or asks it to. The system never talks past a human conversation.</div>
-        </div>
-      </div>
+      <p>The <strong>Automations</strong> tab in the sample above is exactly where this lives. What you clicked through is the shape of the real thing.</p>
       <div class="metric-row">
         <span class="metric">Measured: <b>delivered</b></span>
         <span class="metric">Measured: <b>opened</b></span>
@@ -573,17 +581,46 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
   </div>
 </section>
 
+<!-- ======== PHASE TWO ======== -->
+<section id="phase2" style="background:var(--white)">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="path-head"><span class="path-num">2</span><div><div class="eyebrow"><span>Phase two</span><span class="tick"></span><span>Measurement</span></div><h2 style="margin-top:10px">See.</h2></div></div>
+      <p class="lead">With the system running and your contacts hearing from you, the second phase makes the whole picture countable. We wire the website, the forms, and the phone so that every inquiry is recorded with its source, automatically. Nothing about how you work changes. The business simply starts writing things down for you.</p>
+      <div class="chip-row"><span class="chip">Analytics on every page</span><span class="chip">Every form counted</span><span class="chip">Phone calls counted</span><span class="chip">Facebook pixel taught what a lead is</span><span class="chip">A privacy check before anything expands</span></div>
+      <p>The deliverable you actually see is the Monday scorecard you clicked through in the sample above, made complete. One card, every Monday morning, in plain counts. No dashboards to learn, no logins to remember. It arrives, you glance at it, and you know.</p>
+    </div>
+
+    <div class="scorecard reveal">
+      <div class="scorecard-head"><h3>Monday morning, at a glance</h3><span class="samplenote">Sample data</span></div>
+      <div class="sc-grid">
+        <div class="sc-tile"><div class="v js-leads">9</div><div class="k">New leads last week</div></div>
+        <div class="sc-tile"><div class="v">5</div><div class="k">Consults booked</div></div>
+        <div class="sc-tile"><div class="v">3</div><div class="k">Agreements out</div></div>
+        <div class="sc-tile"><div class="v">2</div><div class="k">Projects scheduled</div></div>
+        <div class="sc-tile"><div class="v">2</div><div class="k">Reviews collected</div></div>
+      </div>
+      <div class="sc-src">Where the 9 came from: <b>4</b> website form · <b>3</b> phone · <b>1</b> Angi · <b>1</b> referral</div>
+    </div>
+
+    <div class="reveal">
+      <p>Within the first month of this phase being live, you will know how many people reached out, through which door, and what each one became. That is the answer to the sentence we heard more than any other on our call: not being sure what is working.</p>
+      <p>It also closes the Facebook question for good. The pixel gets taught what a consult is, so if you ever choose to buy reach later, the ads will finally be able to prove themselves, or be shut off with confidence.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ======== LATER ======== -->
-<section id="later" style="background:var(--white)">
+<section id="later">
   <div class="wrap reveal">
     <div class="eyebrow"><span>Later</span><span class="tick"></span><span>Worth knowing about, not part of these estimates</span></div>
     <h2>Four things we noticed and set aside, on purpose.</h2>
     <p class="lead">Each of these is real, none of them is urgent, and none of them is included in the numbers at the end of this page. We would rather name them now than surprise you with them later.</p>
     <div class="how-grid">
-      <div class="promise-card"><h4>Google and the neighborhood</h4><p>Your website does not currently tell Google that Ideal is a local business, and some older directory listings still carry a previous company name. Cleaning this up is inexpensive and helps the people already searching for you. A natural follow-on to Path One.</p></div>
+      <div class="promise-card"><h4>Google and the neighborhood</h4><p>Your website does not currently tell Google that Ideal is a local business, and some older directory listings still carry a previous company name. Cleaning this up is inexpensive and helps the people already searching for you. A natural follow-on to Phase Two.</p></div>
       <div class="promise-card"><h4>A review engine</h4><p>Your happiest clients say wonderful things in person. A simple, well-timed invitation at project close would put more of that in writing where new clients can find it. Mercedes suggested this on our call, and she is right.</p></div>
       <div class="promise-card"><h4>The Drive</h4><p>Seventeen years of files deserve their own conversation. We would want to look at the Drive together before putting any shape or number on that work, so it is deliberately not part of this blueprint.</p></div>
-      <div class="promise-card"><h4>Paid advertising, eventually</h4><p>You asked whether there is a bigger way to reach people who do not know you yet. There is, and the honest order is: measure first, connect second, and then paid reach becomes worth buying, because you can finally see what it returns.</p></div>
+      <div class="promise-card"><h4>Paid advertising, eventually</h4><p>You asked whether there is a bigger way to reach people who do not know you yet. There is, and the honest order is: connect first, measure second, and then paid reach becomes worth buying, because you can finally see what it returns.</p></div>
     </div>
   </div>
 </section>
@@ -612,7 +649,7 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
       <div class="promise-card"><h4>You own everything</h4><p>The system, the data, the documentation, and the how-it-works guides are yours from day one. There is no version of this where you are renting your own business back from us.</p></div>
       <div class="promise-card"><h4>Training is part of the build</h4><p>We do not hand over a tool and walk away. We work alongside Mercedes and the team until it is genuinely adopted, and we would rather build one thing that gets used than five that collect dust.</p></div>
       <div class="promise-card"><h4>Built for the people using it</h4><p>Anything that requires learning a complicated screen has already failed. The measure of this system is that it gives Tria fewer places to look, not more.</p></div>
-      <div class="promise-card"><h4>We will tell you no</h4><p>Part of what you are paying for is a company that says so when a plan is wrong, including ours. If a path here stops making sense once we are inside the work, we will say that plainly.</p></div>
+      <div class="promise-card"><h4>We will tell you no</h4><p>Part of what you are paying for is a company that says so when a plan is wrong, including ours. If a phase here stops making sense once we are inside the work, we will say that plainly.</p></div>
     </div>
   </div>
 </section>
@@ -621,29 +658,60 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
 <section id="invest" style="background:var(--white)">
   <div class="wrap">
     <div class="reveal">
-      <div class="eyebrow"><span>Timeline and investment</span><span class="tick"></span><span>Ranges, for orientation</span></div>
-      <h2>What this costs, in honest ranges.</h2>
-      <p class="lead">These are orientation ranges, not a quote. When you choose paths, we write a proposal that turns the ranges into a fixed number and an exact scope, before any work starts. The proposal will not surprise you.</p>
+      <div class="eyebrow"><span>Timeline and investment</span><span class="tick"></span><span>Estimates, marked that way on purpose</span></div>
+      <h2>What this costs, plainly.</h2>
+      <p class="lead">Every number below carries a tilde because it is an estimate, not a quote. When you choose the shape, we write a proposal that turns each estimate into a fixed number and an exact scope, before any work starts. The proposal will not surprise you.</p>
     </div>
 
     <div class="table-scroll reveal">
       <table class="invest-table">
-        <thead><tr><th>Path</th><th>Calendar time</th><th>One-time build</th><th>Ongoing</th></tr></thead>
+        <thead><tr><th>Phase</th><th>Calendar time</th><th>One-time build</th><th>Ongoing</th></tr></thead>
         <tbody>
-          <tr><td><b>Path One. See.</b><span class="sub">Analytics, form and call counting, pixel repair, the Monday scorecard</span></td><td>2 to 3 weeks</td><td>$2,000 to $3,000</td><td>About $45 per month for call tracking, paid to that provider directly. Optional, cancel anytime.</td></tr>
-          <tr><td><b>Path Two, Option A.</b><span class="sub">Streak rebuilt: one simple pipeline, doors connected, records consolidated</span></td><td>3 to 4 weeks</td><td>$3,000 to $4,500</td><td>Roughly $20 to $30 per month for the connector service Streak automations require.</td></tr>
-          <tr><td><b>Path Two, Option B.</b><span class="sub">Your own system: built to your ten steps, full migration, automatic lead capture</span></td><td>5 to 7 weeks</td><td>$8,000 to $12,000</td><td>About $40 per month, hosting and backups.</td></tr>
-          <tr><td><b>Path Three. Engage.</b><span class="sub">Segmented follow-up sequences, portal formulas as supply line, human approval on everything</span></td><td>2 to 3 weeks</td><td>$2,400 to $3,400</td><td>None. Uses the Mailchimp account you already pay for.</td></tr>
-          <tr class="tot"><td><b>All three paths, with Option A</b></td><td>7 to 10 weeks</td><td>$7,400 to $10,900</td><td rowspan="2" style="vertical-align:middle">Path One goes live first in either case, so the counting starts while the rest is being built.</td></tr>
-          <tr class="tot"><td><b>All three paths, with Option B</b></td><td>9 to 13 weeks</td><td>$12,400 to $18,400</td></tr>
+          <tr><td><b>Phase One, the system. Option A.</b><span class="sub">Streak rebuilt: one simple pipeline, doors connected, records consolidated</span></td><td>3 to 4 weeks</td><td>~$4,500</td><td>Roughly $20 to $30 per month for the connector service Streak automations require.</td></tr>
+          <tr><td><b>Phase One, the system. Option B.</b><span class="sub">Your own system: built to your ten steps, full migration, automatic lead capture</span></td><td>5 to 7 weeks</td><td>~$12,000</td><td>About $40 per month, hosting and backups.</td></tr>
+          <tr><td><b>Phase One, the outreach.</b><span class="sub">Segmented follow-up for current and past clients, portal formulas as supply line, human approval on everything</span></td><td>2 to 3 weeks</td><td>~$3,400</td><td>None. Uses the Mailchimp account you already pay for.</td></tr>
+          <tr><td><b>Phase Two. Measurement.</b><span class="sub">Analytics, form and call counting, pixel repair, the complete Monday scorecard</span></td><td>2 to 3 weeks</td><td>~$3,000</td><td>About $45 per month for call tracking, paid to that provider directly. Optional, cancel anytime.</td></tr>
+          <tr class="tot"><td><b>Everything, with Option A</b></td><td>7 to 10 weeks</td><td>~$10,900</td><td rowspan="2" style="vertical-align:middle">The system and the outreach come first, so your own contacts start hearing from you while the measurement is being wired.</td></tr>
+          <tr class="tot"><td><b>Everything, with Option B</b></td><td>9 to 13 weeks</td><td>~$18,400</td></tr>
         </tbody>
       </table>
     </div>
     <p class="small reveal">Third-party subscriptions above are paid by you, to those providers, at their published prices, which can change. We add nothing to them.</p>
 
+    <div class="reveal" style="margin-top:36px">
+      <h3 style="font-size:28px">Two ways to pay for it</h3>
+      <p>Same work, same order, two shapes. Choose whichever fits how you like to run the business.</p>
+    </div>
+
+    <div class="pay-grid reveal">
+      <div class="pay-card">
+        <h3>By the project</h3>
+        <div class="big">~$18,400 <span>one time, with Option B</span></div>
+        <ul>
+          <li>The numbers in the table above. Each phase is its own agreed, fixed scope, invoiced when you approve it.</li>
+          <li>You set the order and the pace, and you can pause between phases.</li>
+          <li>Training and a thirty-day refinement window are included in each phase.</li>
+          <li>Ongoing costs after that are only the small third-party subscriptions listed above.</li>
+        </ul>
+        <div class="meta">Best if you prefer a defined project with a clear end, and a system your team runs on its own afterward.</div>
+      </div>
+      <div class="pay-card alt">
+        <span class="alt-tag">Also worth considering</span>
+        <h3>As a monthly partnership</h3>
+        <div class="big">~$2,000 <span>per month, nine month minimum</span></div>
+        <ul>
+          <li>Everything in both phases, built in the same order, with no large invoice at the start.</li>
+          <li>Training, support, hosting, and steady improvement included for as long as you keep it.</li>
+          <li>Month to month after the minimum. Cancel with thirty days notice.</li>
+          <li>You own everything either way: the system, the data, the documentation.</li>
+        </ul>
+        <div class="meta">The nine month minimum comes to about the same as the full project price. After that, the monthly fee is only for keeping it supported and improving. If the help you originally pictured was an ongoing person in your corner rather than a project, this is that, with the build included.</div>
+      </div>
+    </div>
+
     <div class="founding reveal">
       <h3>A note on the pricing</h3>
-      <p style="margin-bottom:0">These ranges sit below what custom work of this scope typically commands, because Ideal is one of our early clients, and early clients shape what we build next. There is an exchange in that. If the work earns it, we will ask for a testimonial and permission to describe the results. If it does not earn it, we will not ask. Either way, you will never see an invoice that was not agreed to in writing first.</p>
+      <p style="margin-bottom:0">These estimates sit below what custom work of this scope typically commands, because Ideal is one of our early clients, and early clients shape what we build next. There is an exchange in that. If the work earns it, we will ask for a testimonial and permission to describe the results. If it does not earn it, we will not ask. Either way, you will never see an invoice that was not agreed to in writing first.</p>
     </div>
   </div>
 </section>
@@ -656,7 +724,7 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
     <p>Read it with your team. Mark what resonates and what does not, including anything we got wrong. This is the start of a conversation, not the end of one, and we would happily pass it back and forth five or six times until the plan is genuinely yours.</p>
     <div class="next-steps">
       <div class="next-step"><div class="n">1</div><p>Share this with Mercedes, Jenn, and anyone else whose eyes you want on it.</p></div>
-      <div class="next-step"><div class="n">2</div><p>We meet for thirty minutes and choose paths. Questions welcome, pushback more so.</p></div>
+      <div class="next-step"><div class="n">2</div><p>We meet for thirty minutes and choose the shape. Questions welcome, pushback more so.</p></div>
       <div class="next-step"><div class="n">3</div><p>We send a written proposal with a fixed number and an exact scope. Work starts only after you approve it.</p></div>
     </div>
     <div class="contact">
@@ -715,12 +783,12 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
 /* ---------- doors ---------- */
 (function(){
   var data=[
-    ['Website contact form','Delivers to an inbox as an email. The source is recorded nowhere, so a lead from the website looks identical to every other message. <strong>After Path One:</strong> counted, tagged as website, and landed in the pipeline automatically.'],
-    ['Consultation booking page','A separate booking tool living inside the website, with its own records. Whether it syncs to anyone’s calendar is a question on our list. <strong>After Path One:</strong> every booking counted and connected.'],
-    ['Newsletter signup','Goes to Mailchimp. Mailchimp and Streak do not talk to each other, so a signup here is invisible to the pipeline. <strong>After Path Two:</strong> one record per person, everywhere.'],
-    ['The phone','Rings daily, and is very likely your busiest door. It is counted nowhere. <strong>After Path One:</strong> calls are counted with a tracked number that forwards to the same line. Nothing changes about answering it.'],
-    ['Gift card shop','The online shop keeps its own customer records, separate from everything else. Every buyer is a warm contact nobody follows up with. <strong>After Path Two:</strong> they land in the pipeline like everyone else.'],
-    ['Angi, Thumbtack and lead sites','These arrive as emails, mixed in with everything else in the inbox. <strong>After Path Two:</strong> recognized automatically and tagged with their source, so you can finally see what each channel is worth.']
+    ['Website contact form','Delivers to an inbox as an email. The source is recorded nowhere, so a lead from the website looks identical to every other message. <strong>After Phase One:</strong> tagged as website and landed in the pipeline automatically. <strong>After Phase Two:</strong> counted, too.'],
+    ['Consultation booking page','A separate booking tool living inside the website, with its own records. Whether it syncs to anyone’s calendar is a question on our list. <strong>After the plan:</strong> every booking connected and counted.'],
+    ['Newsletter signup','Goes to Mailchimp. Mailchimp and Streak do not talk to each other, so a signup here is invisible to the pipeline. <strong>After Phase One:</strong> one record per person, everywhere.'],
+    ['The phone','Rings daily, and is very likely your busiest door. It is counted nowhere. <strong>After Phase Two:</strong> calls are counted with a tracked number that forwards to the same line. Nothing changes about answering it.'],
+    ['Gift card shop','The online shop keeps its own customer records, separate from everything else. Every buyer is a warm contact nobody follows up with. <strong>After Phase One:</strong> they land in the pipeline like everyone else.'],
+    ['Angi, Thumbtack and lead sites','These arrive as emails, mixed in with everything else in the inbox. <strong>After Phase One:</strong> recognized automatically and tagged with their source, so you can finally see what each channel is worth.']
   ];
   var detail=document.getElementById('door-detail');
   document.querySelectorAll('.door').forEach(function(d){
@@ -773,7 +841,56 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
   render();
 })();
 
-/* ---------- CRM demo ---------- */
+/* ---------- CRM demo: views ---------- */
+function demoShowView(key){
+  ['pipeline','autos','reports'].forEach(function(k){
+    document.getElementById('view-'+k).hidden = (k!==key);
+  });
+  document.querySelectorAll('.dnav[data-v]').forEach(function(b){
+    b.classList.toggle('on', b.dataset.v===key);
+  });
+}
+(function(){
+  document.querySelectorAll('.dnav[data-v]').forEach(function(b){
+    b.addEventListener('click',function(){demoShowView(b.dataset.v)});
+  });
+})();
+
+/* ---------- CRM demo: automations ---------- */
+(function(){
+  var autos=[
+    {nm:'Welcome a new lead',tr:'When a new inquiry arrives through any door → send the welcome, offer the consult link, start the sequence',on:true,expand:true},
+    {nm:'Nudge an unsigned agreement',tr:'When DocuSign sits quiet for three days → draft a gentle nudge and hold it for your OK',on:true},
+    {nm:'Review invitation at project close',tr:'When a project is marked complete → queue the thank-you card and draft the review invitation for approval',on:true},
+    {nm:'Seasonal check-in, past clients',tr:'Every spring and fall → a warm hello to past clients, drafted from your portal formulas, approved before it sends',on:false,badge:'Awaiting your first approval'}
+  ];
+  var host=document.getElementById('autos');
+  autos.forEach(function(a){
+    var row=document.createElement('div');row.className='auto-row'+(a.expand?' open':'');
+    var head='<div class="auto-head"><div class="info"><div class="nm">'+a.nm+'</div><div class="tr">'+a.tr.replace('→','<b>→</b>')+'</div></div>'+(a.badge?'<span class="auto-badge">'+a.badge+'</span>':'')+'<div class="sw'+(a.on?' on':'')+'" role="switch" aria-checked="'+a.on+'"></div></div>';
+    var detail='';
+    if(a.expand){
+      detail='<div class="auto-detail"><div class="hint">The welcome sequence · sample</div>'
+      +'<div class="seq-item"><span class="d">Day 0</span><div class="w">A warm welcome and what to expect<em>Drafted in Ideal’s voice from your portal formulas</em><div class="prev">"Thank you for reaching out about your mother’s home. Downsizing a family house is a big undertaking, and looking into it calmly and ahead of time is honestly the best possible start..."</div></div><span class="s" id="seq0">Draft</span></div>'
+      +'<div class="seq-item"><span class="d">Day 3</span><div class="w">A short, genuinely useful guide<em>How to photograph rooms for a photo consult</em></div><span class="s">Drafted next</span></div>'
+      +'<div class="seq-item"><span class="d">Day 7</span><div class="w">A gentle check-in<em>One question, easy to answer</em></div><span class="s">Drafted next</span></div>'
+      +'<div class="seq-approve"><button id="approve-btn">Approve the Day 0 draft</button><span class="st" id="approve-st">Waiting for your review</span></div>'
+      +'<div class="stopline">The sequence stops itself the moment the person replies, books, or asks it to. The system never talks past a human conversation.</div>'
+      +'</div>';
+    }
+    row.innerHTML=head+detail;
+    var sw=row.querySelector('.sw');
+    sw.addEventListener('click',function(e){e.stopPropagation();sw.classList.toggle('on');sw.setAttribute('aria-checked',sw.classList.contains('on'));});
+    if(a.expand){
+      row.querySelector('.auto-head').addEventListener('click',function(){row.classList.toggle('open')});
+    }
+    host.appendChild(row);
+  });
+  var btn=document.getElementById('approve-btn'),st=document.getElementById('approve-st'),s0=document.getElementById('seq0');
+  if(btn){btn.addEventListener('click',function(e){e.stopPropagation();btn.disabled=true;btn.textContent='Approved';st.textContent='Approved by you just now. Scheduled as Day 0';s0.textContent='Scheduled';s0.classList.add('ok');});}
+})();
+
+/* ---------- CRM demo: pipeline ---------- */
 (function(){
   var cols=[
     {k:'new',t:'New leads'},
@@ -809,7 +926,7 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
       var col=document.createElement('div');col.className='colm';
       var n=cards.filter(function(x){return x.col===c.k}).length;
       col.innerHTML='<h5>'+c.t+'<span class="cnt">'+n+'</span></h5>';
-      cards.forEach(function(x,idx){
+      cards.forEach(function(x){
         if(x.col!==c.k)return;
         var el=document.createElement('div');el.className='card'+(x.isNew?' new':'');
         el.innerHTML='<div class="nm">'+x.nm+'</div><div class="ds">'+x.ds+'</div><div class="tags"><span class="tag '+x.src[0]+'">'+x.src[1]+'</span>'+(x.extra?'<span class="tag t-next">'+x.extra+'</span>':'')+'</div>';
@@ -841,9 +958,12 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
   function showToast(html,ms){toast.innerHTML=html;toast.classList.add('show');setTimeout(function(){toast.classList.remove('show')},ms||2600);}
   var sim=document.getElementById('simulate'),simDone=false;
   sim.addEventListener('click',function(){
+    demoShowView('pipeline');
     if(simDone){
       cards=cards.filter(function(x){return x.nm!=='Janet Whitfield'});
-      simDone=false;render();sim.textContent='Watch a new lead arrive';return;
+      simDone=false;render();sim.textContent='Watch a new lead arrive';
+      document.querySelectorAll('.js-leads').forEach(function(v){v.textContent='9'});
+      return;
     }
     sim.disabled=true;
     showToast('<b>9:14 AM</b> · New email · website contact form · “Help downsizing my mother’s home”',2800);
@@ -852,22 +972,12 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
         next:'On your Wednesday call list. Welcome email already sent. Nothing for anyone to remember',
         tl:[['9:14 AM','Email arrived and was recognized as a new inquiry','auto'],['9:14 AM','Source recorded: website contact form','auto'],['9:15 AM','Welcome email sent, consult link included','auto'],['9:15 AM','Follow-up sequence started. Stops the moment she replies','auto'],['9:15 AM','Placed on Tria’s Wednesday call list','auto']]};
       cards.unshift(janet);render();
-      var v=document.getElementById('sc-leads');if(v){v.textContent='10';v.classList.add('bump');setTimeout(function(){v.classList.remove('bump')},500);}
+      document.querySelectorAll('.js-leads').forEach(function(v){v.textContent='10';v.classList.add('bump');setTimeout(function(){v.classList.remove('bump')},500);});
       setTimeout(function(){showToast('<b>9:15 AM</b> · Welcome email sent · source recorded · on Tria’s call list. Total elapsed: about one minute, nobody involved',3600);},900);
       setTimeout(function(){openDrawer(janet);simDone=true;sim.disabled=false;sim.textContent='Reset the sample';},1900);
     },2900);
   });
   render();
-})();
-
-/* ---------- drip approve ---------- */
-(function(){
-  var btn=document.getElementById('approve-btn'),st=document.getElementById('approve-st'),s0=document.getElementById('seq0');
-  btn.addEventListener('click',function(){
-    btn.disabled=true;btn.textContent='Approved';
-    st.textContent='Approved by you just now. Scheduled as Day 0';
-    s0.textContent='Scheduled';s0.classList.add('ok');
-  });
 })();
 </script>
 </body>
