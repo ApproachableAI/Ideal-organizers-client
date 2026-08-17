@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Blueprint Feedback</title>
+<link href="https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#07645f;--teal-deep:#054d49;--teal-soft:#0b7d77;--slate:#7a99a3;--slate-deep:#5f7e88;
+  --mint:#e0ede6;--mint-soft:#edf5f0;--sand:#cec2ab;--sand-deep:#b3a488;--cream:#fffaf4;
+  --ink:#2b3634;--ink-soft:#5a6a66;--white:#ffffff;--terra:#b0715c;
+  --shadow-sm:0 1px 3px rgba(7,100,95,.08);--shadow-md:0 4px 16px rgba(7,100,95,.10);
+  --serif:'Unna',Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{background:var(--teal);color:var(--white);padding:26px 0}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+header h1{font-family:var(--serif);font-size:30px;font-weight:700}
+header .sub{color:var(--mint);font-size:13px;margin-top:2px}
+header button{background:rgba(255,250,244,.15);color:var(--cream);border:1px solid rgba(206,194,171,.4);border-radius:999px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;display:none}
+main{padding:34px 0 60px}
+.panel{background:var(--white);border-radius:14px;box-shadow:var(--shadow-sm);padding:26px 28px;max-width:420px;margin:24px auto}
+.panel h2{font-family:var(--serif);color:var(--teal);font-size:24px;margin-bottom:12px}
+.panel p{font-size:14px;color:var(--ink-soft);margin-bottom:14px}
+.panel code{background:var(--mint-soft);border-radius:5px;padding:2px 6px;font-size:12.5px}
+.panel input{width:100%;border:1.5px solid var(--sand);border-radius:9px;padding:11px 13px;font-size:14.5px;margin-bottom:10px;background:var(--cream);color:var(--ink);outline:none;font-family:var(--sans)}
+.panel input:focus{border-color:var(--teal)}
+.panel button{width:100%;background:var(--teal);color:var(--white);border:none;border-radius:999px;padding:12px;font-size:14.5px;font-weight:700;cursor:pointer}
+.panel button:disabled{background:var(--slate)}
+.panel .err{color:var(--terra);font-size:13.5px;min-height:20px;margin-top:8px}
+.toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.fchip{border:1.5px solid var(--mint);background:var(--white);color:var(--ink-soft);border-radius:999px;padding:7px 16px;font-size:13px;font-weight:600;cursor:pointer}
+.fchip.on{background:var(--teal);border-color:var(--teal);color:var(--white)}
+.toolbar .cnt{margin-left:auto;font-size:13px;color:var(--slate-deep)}
+.cmt{background:var(--white);border-radius:14px;box-shadow:var(--shadow-sm);padding:18px 20px;margin-bottom:12px;border-left:3px solid var(--teal)}
+.cmt.res{border-left-color:var(--sand);opacity:.72}
+.cmt .top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--slate-deep)}
+.cmt .top b{color:var(--ink);font-size:14.5px}
+.cmt .top .res-tag{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:99px;background:var(--mint);color:var(--teal)}
+.cmt .body{margin:9px 0 10px;font-size:15px;white-space:pre-wrap}
+.cmt .ctx{background:var(--mint-soft);border-radius:9px;padding:9px 13px;font-size:12.5px;color:var(--ink-soft)}
+.cmt .ctx b{color:var(--teal);display:block;font-size:13px}
+.cmt .row{display:flex;gap:8px;margin-top:11px;flex-wrap:wrap}
+.cmt .row a,.cmt .row button{border:none;border-radius:999px;padding:7px 15px;font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;font-family:var(--sans)}
+.cmt .jump{background:var(--mint);color:var(--teal-deep)}
+.cmt .toggle{background:var(--teal);color:var(--white)}
+.cmt.res .toggle{background:var(--sand-deep)}
+.empty{text-align:center;color:var(--slate-deep);padding:50px 0;font-size:15px}
+footer{text-align:center;font-size:12.5px;color:var(--slate-deep);padding:26px 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div>
+      <h1>Blueprint Feedback</h1>
+      <div class="sub">Comments left on ideal-blueprint.netlify.app · admin view</div>
+    </div>
+    <button id="signout">Sign out</button>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+
+    <div class="panel" id="setup" style="display:none">
+      <h2>Not configured yet</h2>
+      <p>The feedback system is waiting for its Supabase project. The ten-minute setup:</p>
+      <p>1. Create a project at supabase.com.<br>
+         2. Run <code>supabase/schema.sql</code> from the site repo in the SQL Editor.<br>
+         3. Authentication → disable new sign-ups, then add the admin user.<br>
+         4. Paste the project URL and anon key into <code>fb-config.js</code> and redeploy.</p>
+    </div>
+
+    <div class="panel" id="login" style="display:none">
+      <h2>Sign in</h2>
+      <p>Admin access only. Use the login created in Supabase Authentication.</p>
+      <input type="email" id="email" placeholder="Email" autocomplete="username">
+      <input type="password" id="password" placeholder="Password" autocomplete="current-password">
+      <button id="signin">Sign in</button>
+      <div class="err" id="login-err"></div>
+    </div>
+
+    <div id="app" style="display:none">
+      <div class="toolbar">
+        <button class="fchip on" data-f="open">Open</button>
+        <button class="fchip" data-f="resolved">Resolved</button>
+        <button class="fchip" data-f="all">All</button>
+        <span class="cnt" id="count"></span>
+      </div>
+      <div id="list"></div>
+    </div>
+
+  </div>
+</main>
+<footer>Approachable Intelligence · internal tool</footer>
+
+<script src="/fb-config.js"></script>
+<script>
+(function(){
+  var cfg=window.FEEDBACK_CONFIG||{};
+  var configured=typeof cfg.url==='string'&&/^https:\/\//.test(cfg.url)&&cfg.url.indexOf('YOUR_')===-1&&typeof cfg.anonKey==='string'&&cfg.anonKey.length>40&&cfg.anonKey.indexOf('YOUR_')===-1;
+  var base=configured?cfg.url.replace(/\/$/,''):'';
+  var $=function(id){return document.getElementById(id)};
+  var token=sessionStorage.getItem('fb-admin-token')||'';
+  var filter='open',rows=[];
+
+  function show(which){
+    $('setup').style.display=which==='setup'?'block':'none';
+    $('login').style.display=which==='login'?'block':'none';
+    $('app').style.display=which==='app'?'block':'none';
+    $('signout').style.display=which==='app'?'inline-block':'none';
+  }
+  if(!configured){show('setup');return;}
+
+  function api(path,opts){
+    opts=opts||{};
+    opts.headers=Object.assign({
+      'apikey':cfg.anonKey,
+      'Authorization':'Bearer '+(opts.auth==='anon'?cfg.anonKey:token),
+      'Content-Type':'application/json'
+    },opts.headers||{});
+    return fetch(base+path,opts).then(function(r){
+      if(r.status===401){token='';sessionStorage.removeItem('fb-admin-token');show('login');throw new Error('signed out');}
+      if(!r.ok)return r.text().then(function(t){throw new Error('HTTP '+r.status+': '+t.slice(0,120))});
+      return r.status===204?null:r.json();
+    });
+  }
+
+  $('signin').addEventListener('click',doLogin);
+  $('password').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
+  function doLogin(){
+    var email=$('email').value.trim(),pw=$('password').value;
+    if(!email||!pw){$('login-err').textContent='Email and password, please.';return;}
+    $('signin').disabled=true;$('login-err').textContent='';
+    fetch(base+'/auth/v1/token?grant_type=password',{
+      method:'POST',
+      headers:{'apikey':cfg.anonKey,'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,password:pw})
+    }).then(function(r){return r.json()}).then(function(d){
+      $('signin').disabled=false;
+      if(d.access_token){token=d.access_token;sessionStorage.setItem('fb-admin-token',token);show('app');load();}
+      else{$('login-err').textContent=d.error_description||d.msg||'Sign in failed. Check the login.';}
+    }).catch(function(){$('signin').disabled=false;$('login-err').textContent='Could not reach Supabase.';});
+  }
+  $('signout').addEventListener('click',function(){token='';sessionStorage.removeItem('fb-admin-token');show('login');});
+
+  function load(){
+    api('/rest/v1/feedback_comments?select=*&order=created_at.desc').then(function(d){
+      rows=d||[];render();
+    }).catch(function(e){ if(e.message!=='signed out'){$('list').innerHTML='<div class="empty">Could not load: '+e.message+'</div>';} });
+  }
+
+  function fmtTime(iso){
+    try{return new Date(iso).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});}catch(e){return iso;}
+  }
+  function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+
+  document.querySelectorAll('.fchip').forEach(function(c){
+    c.addEventListener('click',function(){
+      filter=c.dataset.f;
+      document.querySelectorAll('.fchip').forEach(function(x){x.classList.toggle('on',x===c)});
+      render();
+    });
+  });
+
+  function render(){
+    var open=rows.filter(function(r){return !r.resolved}).length;
+    $('count').textContent=open+' open · '+(rows.length-open)+' resolved';
+    var vis=rows.filter(function(r){
+      return filter==='all'||(filter==='open'?!r.resolved:r.resolved);
+    });
+    if(!vis.length){$('list').innerHTML='<div class="empty">'+(filter==='open'?'Nothing open. Quiet is good.':'Nothing here yet.')+'</div>';return;}
+    $('list').innerHTML='';
+    vis.forEach(function(r){
+      var el=document.createElement('div');el.className='cmt'+(r.resolved?' res':'');
+      var jump='https://ideal-blueprint.netlify.app'+(r.page&&r.page!=='/'?r.page:'/')+'?fbfocus='+encodeURIComponent(r.element_id);
+      el.innerHTML=
+        '<div class="top"><b>'+esc(r.reviewer)+'</b><span>'+fmtTime(r.created_at)+'</span>'+(r.resolved?'<span class="res-tag">Resolved</span>':'')+'</div>'
+        +'<div class="body">'+esc(r.comment)+'</div>'
+        +'<div class="ctx"><b>'+esc(r.element_label||r.element_id)+'</b>'+esc(r.excerpt||'')+'</div>'
+        +'<div class="row"><a class="jump" href="'+jump+'" target="_blank" rel="noopener">Open on the page</a>'
+        +'<button class="toggle">'+(r.resolved?'Reopen':'Mark resolved')+'</button></div>';
+      el.querySelector('.toggle').addEventListener('click',function(){
+        var to=!r.resolved;
+        api('/rest/v1/feedback_comments?id=eq.'+r.id,{
+          method:'PATCH',
+          headers:{'Prefer':'return=minimal'},
+          body:JSON.stringify({resolved:to,resolved_at:to?new Date().toISOString():null})
+        }).then(function(){r.resolved=to;r.resolved_at=to?new Date().toISOString():null;render();})
+        .catch(function(e){if(e.message!=='signed out')alert('Update failed: '+e.message);});
+      });
+      $('list').appendChild(el);
+    });
+  }
+
+  if(token){show('app');load();}else{show('login');}
+})();
+</script>
+</body>
+</html>

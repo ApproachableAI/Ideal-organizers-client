@@ -334,6 +334,35 @@ header.hero{padding:96px 0 80px;text-align:center;background:linear-gradient(180
 footer{padding:34px 0;text-align:center;font-size:13px;color:var(--slate-deep)}
 footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
 @media print{#gate,nav,#toast,#drawer,#drawer-veil{display:none!important}section{padding:40px 0}.reveal{opacity:1;transform:none}}
+/* ---------- feedback ---------- */
+#fb-btn{position:fixed;bottom:24px;right:24px;z-index:400;display:none;align-items:center;gap:9px;background:var(--teal);color:var(--cream);border:none;border-radius:999px;padding:12px 20px;font-family:var(--sans);font-size:13.5px;font-weight:600;cursor:pointer;box-shadow:var(--shadow-md);transition:all .25s}
+#fb-btn:hover{background:var(--teal-soft);transform:translateY(-2px)}
+#fb-btn svg{width:16px;height:16px}
+#fb-btn.active{background:var(--sand);color:var(--teal-deep)}
+#fb-hint{position:fixed;bottom:76px;right:24px;z-index:400;background:var(--ink);color:var(--cream);font-size:12.5px;padding:9px 14px;border-radius:10px;box-shadow:var(--shadow-md);display:none;max-width:240px;line-height:1.5}
+body.fb-mode #fb-hint{display:block}
+body.fb-mode .fb-target{cursor:pointer!important}
+body.fb-mode .fb-target:hover{outline:2px dashed var(--sand-deep);outline-offset:3px;border-radius:4px}
+.fb-flash{animation:fbpulse 2.4s ease 2}
+@keyframes fbpulse{0%,100%{outline:3px solid transparent;outline-offset:4px}30%,70%{outline:3px solid var(--sand-deep);outline-offset:4px}}
+#fb-composer{position:fixed;z-index:401;width:min(330px,92vw);background:var(--white);border-radius:14px;box-shadow:var(--shadow-lg);border:1.5px solid var(--mint);display:none;font-family:var(--sans)}
+#fb-composer.show{display:block;animation:fadein .25s}
+#fb-composer .fbc-head{padding:13px 16px 9px;border-bottom:1.5px solid var(--mint-soft)}
+#fb-composer .fbc-head .l{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate-deep);font-weight:700}
+#fb-composer .fbc-head .t{font-size:13.5px;color:var(--ink);font-weight:600;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#fb-composer .fbc-body{padding:12px 16px 14px}
+#fb-composer input,#fb-composer textarea{width:100%;border:1.5px solid var(--sand);border-radius:9px;padding:9px 11px;font-size:13.5px;font-family:var(--sans);color:var(--ink);background:var(--cream);outline:none}
+#fb-composer input:focus,#fb-composer textarea:focus{border-color:var(--teal)}
+#fb-composer textarea{margin-top:8px;min-height:84px;resize:vertical}
+#fb-composer .fbc-row{display:flex;gap:8px;align-items:center;margin-top:10px}
+#fb-composer .fbc-row button{border:none;border-radius:999px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer}
+#fb-composer .fbc-send{background:var(--teal);color:var(--white)}
+#fb-composer .fbc-send:disabled{background:var(--slate);cursor:default}
+#fb-composer .fbc-cancel{background:var(--mint);color:var(--teal-deep)}
+#fb-composer .fbc-msg{font-size:12.5px;margin-left:auto}
+#fb-composer .fbc-msg.ok{color:var(--teal)}
+#fb-composer .fbc-msg.err{color:var(--terra)}
+@media print{#fb-btn,#fb-hint,#fb-composer{display:none!important}}
 </style>
 </head>
 <body>
@@ -745,6 +774,23 @@ footer img{width:44px;height:44px;border-radius:50%;margin-bottom:12px}
 <div id="drawer"><div class="dr-head" style="position:relative"><button class="x" id="drawer-x">✕</button><h4 id="dr-name"></h4><div class="ds" id="dr-desc"></div></div><div class="dr-body"><div class="dr-sec">Next action</div><div class="next-a" id="dr-next"></div><div class="dr-sec">The story so far</div><ul class="tl" id="dr-tl"></ul></div></div>
 <div id="toast"></div>
 
+<!-- ======== feedback widget ======== -->
+<button id="fb-btn" aria-label="Leave feedback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H8l-4 4z"/></svg><span id="fb-btn-label">Leave feedback</span></button>
+<div id="fb-hint">Click any section, card, or paragraph to comment on it. Esc when you are done.</div>
+<div id="fb-composer" role="dialog" aria-label="Leave a comment">
+  <div class="fbc-head"><div class="l">Commenting on</div><div class="t" id="fbc-target"></div></div>
+  <div class="fbc-body">
+    <input type="text" id="fbc-name" placeholder="Your name" maxlength="80" autocomplete="name">
+    <textarea id="fbc-text" placeholder="What should we know about this part?" maxlength="1500"></textarea>
+    <div class="fbc-row">
+      <button class="fbc-send" id="fbc-send">Send</button>
+      <button class="fbc-cancel" id="fbc-cancel">Cancel</button>
+      <span class="fbc-msg" id="fbc-msg"></span>
+    </div>
+  </div>
+</div>
+<script src="/fb-config.js"></script>
+
 <script>
 /* ---------- password gate ---------- */
 (function(){
@@ -979,6 +1025,110 @@ function demoShowView(key){
     },2900);
   });
   render();
+})();
+
+/* ---------- feedback system ---------- */
+(function(){
+  var cfg = window.FEEDBACK_CONFIG || {};
+  var configured = typeof cfg.url==='string' && /^https:\/\//.test(cfg.url) && cfg.url.indexOf('YOUR_')===-1 && typeof cfg.anonKey==='string' && cfg.anonKey.length>40 && cfg.anonKey.indexOf('YOUR_')===-1;
+
+  /* stable identifiers: walk commentable elements in DOM order within their section */
+  var SELECTORS='h2,h3,p.lead,.quote-card,.good-item,.stat,.door,.step,.opt,.pay-card,.promise-card,.scorecard,.table-scroll,.demo-shell,.df-step,.reassure,.founding,.next-step,.auto-row,.metric-row';
+  var counters={};
+  document.querySelectorAll(SELECTORS).forEach(function(el){
+    if(el.closest('#fb-composer,#drawer,#gate,nav'))return;
+    var scope=el.closest('section[id],header.hero,footer');
+    var sid=scope ? (scope.id||scope.tagName.toLowerCase()) : 'page';
+    counters[sid]=(counters[sid]||0)+1;
+    el.setAttribute('data-fb', 'fb-'+sid+'-'+counters[sid]);
+    el.classList.add('fb-target');
+  });
+  function labelFor(el){
+    var h=el.matches('h2,h3') ? el : el.querySelector('h2,h3,h4,.nm,b,strong');
+    var t=(h?h.textContent:el.textContent)||'';
+    t=t.trim().replace(/\s+/g,' ');
+    return t.slice(0,70)+(t.length>70?'…':'');
+  }
+
+  /* deep link: ?fbfocus=fb-... */
+  try{
+    var q=new URLSearchParams(location.search).get('fbfocus');
+    if(q){
+      var tgt=document.querySelector('[data-fb="'+CSS.escape(q)+'"]');
+      if(tgt){setTimeout(function(){tgt.scrollIntoView({behavior:'smooth',block:'center'});tgt.classList.add('fb-flash');},700);}
+    }
+  }catch(e){}
+
+  if(!configured) return;  /* button stays hidden until fb-config.js is filled in */
+
+  var btn=document.getElementById('fb-btn'),btnLabel=document.getElementById('fb-btn-label'),
+      composer=document.getElementById('fb-composer'),
+      nameIn=document.getElementById('fbc-name'),textIn=document.getElementById('fbc-text'),
+      sendBtn=document.getElementById('fbc-send'),cancelBtn=document.getElementById('fbc-cancel'),
+      msg=document.getElementById('fbc-msg'),targetLbl=document.getElementById('fbc-target');
+  var mode=false,current=null;
+  btn.style.display='flex';
+  nameIn.value=localStorage.getItem('fb-reviewer')||'';
+
+  function setMode(on){
+    mode=on;
+    document.body.classList.toggle('fb-mode',on);
+    btn.classList.toggle('active',on);
+    btnLabel.textContent=on?'Done':'Leave feedback';
+    if(!on)closeComposer();
+  }
+  function closeComposer(){composer.classList.remove('show');current=null;msg.textContent='';msg.className='fbc-msg';}
+  btn.addEventListener('click',function(){setMode(!mode)});
+  cancelBtn.addEventListener('click',closeComposer);
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Escape')return;
+    if(composer.classList.contains('show'))closeComposer();
+    else if(mode)setMode(false);
+  });
+
+  document.addEventListener('click',function(e){
+    if(!mode)return;
+    if(e.target.closest('#fb-btn,#fb-composer'))return;
+    var el=e.target.closest('.fb-target');
+    if(!el)return;
+    e.preventDefault();e.stopPropagation();
+    current=el;
+    targetLbl.textContent=labelFor(el);
+    var x=Math.min(e.clientX,window.innerWidth-350),y=Math.min(e.clientY+10,window.innerHeight-260);
+    composer.style.left=Math.max(10,x)+'px';composer.style.top=Math.max(10,y)+'px';
+    msg.textContent='';msg.className='fbc-msg';sendBtn.disabled=false;sendBtn.textContent='Send';
+    composer.classList.add('show');
+    (nameIn.value?textIn:nameIn).focus();
+  },true);
+
+  sendBtn.addEventListener('click',function(){
+    if(!current)return;
+    var name=nameIn.value.trim(),text=textIn.value.trim();
+    if(!name){msg.textContent='Add your name first';msg.className='fbc-msg err';nameIn.focus();return;}
+    if(!text){msg.textContent='The comment is empty';msg.className='fbc-msg err';textIn.focus();return;}
+    localStorage.setItem('fb-reviewer',name);
+    sendBtn.disabled=true;sendBtn.textContent='Sending';
+    fetch(cfg.url.replace(/\/$/,'')+'/rest/v1/feedback_comments',{
+      method:'POST',
+      headers:{'apikey':cfg.anonKey,'Authorization':'Bearer '+cfg.anonKey,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({
+        page:location.pathname,
+        element_id:current.getAttribute('data-fb'),
+        element_label:labelFor(current),
+        excerpt:(current.textContent||'').trim().replace(/\s+/g,' ').slice(0,160),
+        reviewer:name,
+        comment:text
+      })
+    }).then(function(r){
+      if(!r.ok)throw new Error('HTTP '+r.status);
+      msg.textContent='Thank you. Sent.';msg.className='fbc-msg ok';
+      textIn.value='';
+      setTimeout(closeComposer,1200);
+    }).catch(function(){
+      msg.textContent='Could not send. Try again.';msg.className='fbc-msg err';
+      sendBtn.disabled=false;sendBtn.textContent='Send';
+    });
+  });
 })();
 </script>
 </body>
