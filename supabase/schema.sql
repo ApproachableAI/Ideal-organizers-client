@@ -11,8 +11,9 @@
 --
 -- After running this, also do BOTH of these in the dashboard:
 --   1. Authentication → Sign In / Up → disable "Allow new users to sign up".
---   2. Authentication → Users → Add user → create the admin login
---      (ty@approachableintelligence.ai) with a strong password.
+--   2. Authentication → Users → Add user → create a login for EACH admin
+--      email listed in the policies below (ty@, info@, sean@, jordyn@).
+--      The policy grants access to the email; the account has to exist too.
 
 create table if not exists public.feedback_comments (
   id            uuid primary key default gen_random_uuid(),
@@ -28,6 +29,10 @@ create table if not exists public.feedback_comments (
 );
 
 alter table public.feedback_comments enable row level security;
+
+drop policy if exists "reviewers may submit" on public.feedback_comments;
+drop policy if exists "admins may read"      on public.feedback_comments;
+drop policy if exists "admins may update"    on public.feedback_comments;
 
 -- Reviewers (anon key): insert only, bounded sizes, nothing readable back.
 create policy "reviewers may submit"
@@ -45,7 +50,6 @@ create policy "reviewers may submit"
   );
 
 -- Admins (authenticated through Supabase Auth): read and update.
--- Add more emails to the list if Jordyn or Sean should see feedback too.
 create policy "admins may read"
   on public.feedback_comments
   for select
@@ -53,7 +57,9 @@ create policy "admins may read"
   using (
     (auth.jwt() ->> 'email') in (
       'ty@approachableintelligence.ai',
-      'info@approachableintelligence.ai'
+      'info@approachableintelligence.ai',
+      'sean@approachableintelligence.ai',
+      'jordyn@approachableintelligence.ai'
     )
   );
 
@@ -64,7 +70,9 @@ create policy "admins may update"
   using (
     (auth.jwt() ->> 'email') in (
       'ty@approachableintelligence.ai',
-      'info@approachableintelligence.ai'
+      'info@approachableintelligence.ai',
+      'sean@approachableintelligence.ai',
+      'jordyn@approachableintelligence.ai'
     )
   )
   with check (true);
