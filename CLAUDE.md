@@ -29,3 +29,11 @@ Hub knowledge is context for Claude only. It must never appear in client-facing 
 
 - **Code changes** commit and push here, in this repo.
 - **Knowledge changes** — deal terms, decisions, milestones, architecture choices, hard-won gotchas, corrected assumptions — get written in the hub: update the engagement note and/or Master README there, log decisions in `company/Decisions Log.md`, commit, push. Never leave knowledge only in this repo; a spoke is never a write location for knowledge.
+
+## State of this repo, August 18, 2026
+
+- `index.html` — the 48-Hour Blueprint, live at **https://ideal-blueprint.netlify.app** (password `IdealDemo`, any capitalization). Single self-contained file: password gate, interactive sample CRM ("Ideal Client Flow" with Pipeline / Automations / Reports views and a simulated lead arrival), three-option system comparison, two-phase plan, pricing ladder, and the reviewer feedback widget.
+- `admin/feedback/index.html` — the feedback admin view (Supabase Auth login; four company logins).
+- `fb-config.js` — Supabase URL + anon public key (safe to publish; RLS enforces access).
+- `supabase/schema.sql` — the feedback table and Row Level Security policies. Anon inserts only; the four admin emails read and resolve.
+- **Deploys are Netlify API file-digest deploys, not GitHub-connected and never zip uploads** (the session proxy corrupts zip content types). The full redeploy recipe, Netlify site ID, brand tokens, pricing history, and every content decision live in the hub: `clients/ideal-organizing-design/48-Hour Blueprint.md`. Read that note before changing anything here.
